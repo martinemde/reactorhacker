@@ -1,20 +1,28 @@
-require File.dirname(__FILE__) + '/match_ratio'
-
 class Word < String
-  def initialze(word)
-    raise ArgumentError, "Words can only be letters." unless word =~ /^[A-Z]+$/i
+  class Invalid < ArgumentError; end 
+
+  def initialize(word)
+    word = word.strip.downcase
+    raise(Word::Invalid, "only letters allowed") unless word =~ /^[a-z]*$/
     super
   end
 
-  def remaining(words)
+  # Given a set of words, return the number of tries for the worst case senario
+  def max_solve_attempts(words)
+    words.inject({}) do |h, word|
+      mc = match_count(word)
+      h[mc] ||= 0
+      h[mc] += 1
+      h
+    end.values.max
   end
 
-  def match_ratio(actual)
-    return MatchRatio.new(size, size) if self == actual
-    matches = 0
-    0.upto(size - 1) do |i|
-      matches += 1 if self[i] == actual[i]
-    end
-    MatchRatio.new(matches, actual.size)
+  def match_count(word)
+    return size if self == word
+    (0..size-1).to_a.select { |i| self[i] == word[i] }.size
+  end
+
+  def match_percentage(word)
+    MatchPercentage.new(match_count(word), word.size)
   end
 end

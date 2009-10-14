@@ -1,0 +1,11 @@
+%ul
+  - suggest = current_term.suggest
+  - current_term.possible_matches.each do |word|
+    %li
+      = word
+      - if word == suggest
+        %form{:action => "/suggestion", :method => "get"}
+          - current_term.picks.each do |pick|
+            %input{:type => "hidden", :name => pick.word, "value" => pick.correct}
+          %input{:type => "text", :name => "#{word}"}
+          %button{:type => "submit"} Pick

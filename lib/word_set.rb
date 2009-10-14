@@ -1,34 +1,34 @@
-class WordSet
-  def initialize(name, words, match_ratio = nil)
-    @name, @words = name, words
-    @match_ratio = match_ratio
+require File.dirname(__FILE__) + '/word'
+
+class WordSet < Array
+  class WordNotFound < ArgumentError; end
+
+  def self.normalize(array)
+    array.map { |w| Word.new(w) }.reject { |w| w.empty? }.uniq
   end
 
-  def match_ratios_for(pick)
-    @words.inject({}) do |h, actual|
-      mr = pick.match_ratio(actual)
-      h[mr.to_s] ||= mr
-      h[mr.to_s] << actual
-      h
-    end.values
+  def initialize(words)
+    words = words.split(/[^a-z]/i) if words.is_a? String
+    super self.class.normalize(words)
   end
 
-  def possible_word_sets
-    @matches = @words.inject({}) do |all, attempted|
-      all[attempted] = match_ratios_for(attempted)
-      all
+  def suggest
+    map { |word| [word.max_solve_attempts(self), word] }.min.last
+  end
+
+  def remaining_after_pick(pick)
+    matches = select { |word| pick.match(word) }
+    if matches.empty?
+      raise WordSet::WordNotFound, "Word not found in set: #{pick}"
     end
+    matches
   end
 
   def solved?
-    @words.size == 1
+    size == 1
   end
 
-  def to_s
-    if solved?
-      "#{@name}: **Solved: *#{@words.first}*\n"
-    else
-      "#{@name}: #{@words.join(', ')}\n"
-    end
+  def select
+    WordSet.new(super)
   end
 end

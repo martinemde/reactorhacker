@@ -18,28 +18,48 @@ class Fallout3Hacker < Sinatra::Base
   end
 
   get '/' do
-    session[:words] = nil
+    session[:term] = nil
     haml :new
-  end
-
-  get '/words' do
-    redirect '/solutions'
   end
 
   post '/words' do
     session[:term] = Term.new(params[:words])
-    return redirect('/') if current_term.empty?
-    redirect '/solutions'
+    if current_term.empty?
+      redirect '/'
+    else
+      redirect '/suggestion'
+    end
   end
 
-  get '/solutions' do
-    return redirect('/') if current_term.empty?
-    haml :solutions
+  get '/words' do
+    redirect '/suggestion'
+  end
+
+  get '/suggestion' do
+    if current_term.empty?
+      redirect '/'
+    else
+      params.each do |word,correct|
+        @term = current_term.pick(word, correct)
+      end
+      haml :suggestion
+    end
+  end
+
+  post '/pick' do
+    if current_term.empty?
+      redirect '/'
+    else
+      params.each do |word,correct|
+        @term = current_term.pick(word, correct)
+      end
+      redirect '/suggestion'
+    end
   end
 
   helpers do
     def current_term
-      session[:term] || []
+      @term ||= session[:term] || Term.new([])
     end
   end
 end
