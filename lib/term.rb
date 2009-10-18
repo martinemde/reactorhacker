@@ -9,35 +9,40 @@ class Term
     @picks = []
   end
 
-  def suggest
-    @word_set.suggest
+  def empty?
+    @word_set.empty?
   end
 
-  # Send a pick with the word and the correct characters count
-  def pick!(word, correct)
-    pk = Pick.new(word, correct)
-    @word_set = @word_set.remaining_after_pick(pk)
-    @picks << pk
-    self
+  def solved?
+    @word_set.solved?
+  end
+
+  def suggest
+    @suggest ||= @word_set.suggest
+  end
+
+  # Pass a set of picks like { "word" => 1, "other" => 3 }
+  def after_picking(picks)
+    return self unless picks.is_a?(Hash)
+    picks.inject(self) { |term, (word, correct)| term.pick(word, correct) }
   end
 
   def pick(word, correct)
-    pk = Pick.new(word, correct)
-    term = dup
-    term.pick!(word, correct)
-    term
-  end
-
-  def empty?
-    @word_set.empty?
+    dup.pick!(word, correct)
   end
 
   def possible_matches
     @word_set
   end
 
-  def solved?
-    @word_set.solved?
+  protected
+
+  # Send a pick with the word and the correct characters count
+  def pick!(word, correct)
+    pk = Pick.new(word, correct)
+    @word_set = @word_set.remaining_after_pick(pk)
+    self
   end
+
 end
 

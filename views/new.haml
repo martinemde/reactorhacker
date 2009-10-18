@@ -1,3 +1,3 @@
-%form{ :action => "/words", :method => "post" }
-  %textarea#words{ :name => "words", :rows => 30, :cols => 20 }
+%form{ :action => "/", :method => "post" }
+  %textarea#words{ :name => "words", :rows => 30, :cols => 20, :value => current_term.word_set.join("\n") }
   %button{ :type => "submit" } Solve

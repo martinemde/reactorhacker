@@ -6,6 +6,9 @@
       - if word == suggest
         %form{:action => "/suggestion", :method => "get"}
           - current_term.picks.each do |pick|
-            %input{:type => "hidden", :name => pick.word, "value" => pick.correct}
-          %input{:type => "text", :name => "#{word}"}
+            %input{:type => "hidden", :name => pick.word, :value => pick.correct}
+          %input{:type => "text", :name => word}
           %button{:type => "submit"} Pick
+
+%p
+  %a{:href => "/new"} Erase &amp; Start Over

@@ -18,11 +18,15 @@ class App < Sinatra::Base
   end
 
   get '/' do
+    haml :new
+  end
+
+  get '/new' do
     session[:term] = nil
     haml :new
   end
 
-  post '/words' do
+  post '/' do
     session[:term] = Term.new(params[:words])
     if current_term.empty?
       redirect '/'
@@ -31,17 +35,11 @@ class App < Sinatra::Base
     end
   end
 
-  get '/words' do
-    redirect '/suggestion'
-  end
-
   get '/suggestion' do
     if current_term.empty?
       redirect '/'
     else
-      params.each do |word,correct|
-        @term = current_term.pick(word, correct)
-      end
+      @term = current_term.after_picking(params)
       haml :suggestion
     end
   end
