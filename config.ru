@@ -1,3 +1,4 @@
-require 'fallout3hacker'
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), 'lib'))
 
-run Fallout3Hacker
+require 'app'
+run App

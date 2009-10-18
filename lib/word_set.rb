@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/word'
+require 'word'
 
 class WordSet < Array
   class WordNotFound < ArgumentError; end
@@ -17,7 +17,7 @@ class WordSet < Array
   end
 
   def remaining_after_pick(pick)
-    matches = select { |word| pick.match(word) }
+    matches = select { |word| pick.match?(word) }
     if matches.empty?
       raise WordSet::WordNotFound, "Word not found in set: #{pick}"
     end

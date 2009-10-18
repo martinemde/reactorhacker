@@ -1,5 +1,5 @@
-require File.dirname(__FILE__) + '/word_set'
-require File.dirname(__FILE__) + '/pick'
+require 'word_set'
+require 'pick'
 
 class Term
   attr_reader :word_set, :picks
@@ -23,9 +23,9 @@ class Term
 
   def pick(word, correct)
     pk = Pick.new(word, correct)
-    t = dup
-    t.pick!(word, correct)
-    t
+    term = dup
+    term.pick!(word, correct)
+    term
   end
 
   def empty?

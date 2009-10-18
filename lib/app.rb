@@ -1,8 +1,8 @@
 require 'haml'
 require 'sinatra/base'
-require File.dirname(__FILE__) + '/lib/term'
+require 'term'
 
-class Fallout3Hacker < Sinatra::Base
+class App < Sinatra::Base
   helpers Haml::Helpers
 
   set :app_file, __FILE__

@@ -5,7 +5,7 @@ describe Pick do
   subject { Pick.new("cat", "2") }
 
   def match(word)
-    simple_matcher("match") { |given| given.match(word) }
+    simple_matcher("match") { |given| given.match?(word) }
   end
 
   it "has the correct word" do

@@ -3,26 +3,26 @@ class Word < String
 
   def initialize(word)
     word = word.strip.downcase
-    raise(Word::Invalid, "only letters allowed") unless word =~ /^[a-z]*$/
+    raise(Invalid, "only letters allowed") unless word =~ /^[a-z]*$/
     super
   end
 
   # Given a set of words, return the number of tries for the worst case senario
   def max_solve_attempts(words)
-    words.inject({}) do |h, word|
-      mc = match_count(word)
-      h[mc] ||= 0
-      h[mc] += 1
-      h
-    end.values.max
+    solve_attempts_by_match_count(words).values.max
+  end
+
+  def solve_attempts_by_match_count(words)
+    words.inject(zero_default_hash) { |h, word| h[match_count(word)] += 1; h }
   end
 
   def match_count(word)
-    return size if self == word
-    (0..size-1).to_a.select { |i| self[i] == word[i] }.size
+    scan(/./).zip(word.scan(/./)).select { |(a,b)| a == b }.size
   end
 
-  def match_percentage(word)
-    MatchPercentage.new(match_count(word), word.size)
+  protected
+
+  def zero_default_hash
+    Hash.new { |h, k| h[k] = 0 }
   end
 end

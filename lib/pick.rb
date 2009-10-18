@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/word'
+require 'word'
 
 class Pick
   attr_reader :word, :correct
@@ -7,7 +7,7 @@ class Pick
     @word, @correct = Word.new(word), correct.to_i
   end
 
-  def match(attempt)
+  def match?(attempt)
     @word.match_count(attempt) == @correct
   end
 
