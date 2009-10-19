@@ -1,3 +1,9 @@
 %form{ :action => "/", :method => "post" }
-  %textarea#words{ :name => "words", :rows => 30, :cols => 20, :value => current_term.word_set.join("\n") }
-  %button{ :type => "submit" } Solve
+  %fieldset
+    %legend Terminal
+    %label{:for => "word_set"} Word Set
+    %textarea#word_set{ :name => "words", :rows => 30, :cols => 20, :value => current_term.word_set.join("\n") }
+    %p.help
+      After finding and clicking all the paired [], &lt;&gt;, (), and {}.
+      Enter each word on its own line into this text box.
+    %button{ :type => "submit" } Solve

@@ -1,8 +1,7 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'word'
+require 'spec_helper'
 
-describe Word do
-  subject { Word.new("cat") }
+describe ReactorHacker::Word do
+  subject { ReactorHacker::Word.new("cat") }
 
   { 
     #       3      2      2      2      2
@@ -13,25 +12,26 @@ describe Word do
     2 => ['cat', 'fog', 'pot', 'fat', 'bat']
   }.each do |max, words|
     it "has max_selve_attempts of #{max} for #{words.join(', ')}" do
-      subject.max_solve_attempts(words).should == max
+      subject.max_solve_attempts(ReactorHacker::WordSet.new(words)).should == max
     end
   end
 
   {
-    "Cat"  => "cat",
-    "CAT"  => "cat",
-    " cat" => "cat", # space cat
+    "cat"  => "CAT",
+    "Cat"  => "CAT",
+    "CAT"  => "CAT",
+    " cat" => "CAT", # space cat
     "    " => "",
     ""     => ""
   }.each do |word, normal|
     it %|normalizes "#{word}" to "#{normal}"| do
-      Word.new(word).should == normal
+      ReactorHacker::Word.new(word).should == normal
     end
   end
 
   ["c t", "123", "ab1"].each do |bad|
     it %|raises on "#{bad}"| do
-      lambda { Word.new(bad) }.should raise_error(Word::Invalid)
+      lambda { ReactorHacker::Word.new(bad) }.should raise_error(ReactorHacker::Word::Invalid)
     end
   end
 end

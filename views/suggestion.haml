@@ -1,14 +1,22 @@
-%ul
-  - suggest = current_term.suggest
-  - current_term.possible_matches.each do |word|
-    %li
-      = word
-      - if word == suggest
-        %form{:action => "/suggestion", :method => "get"}
-          - current_term.picks.each do |pick|
-            %input{:type => "hidden", :name => pick.word, :value => pick.correct}
-          %input{:type => "text", :name => word}
-          %button{:type => "submit"} Pick
+- if current_term.solved?
+  %h2.suggestion Solved! The answer is #{suggestion}.
+- else
+  %h2.suggestion I suggest you pick #{suggestion}.
 
-%p
-  %a{:href => "/new"} Erase &amp; Start Over
+  %form{:action => "/suggestion", :method => "get"}
+    %fieldset
+      - current_term.picks.each do |pick|
+        %input{:type => "hidden", :name => pick.word.downcase, :value => pick.correct}
+      %legend Picking #{suggestion}
+      %label{:for => "suggested_pick"} How many correct?
+      %input{:type => "text", :name => suggestion.downcase, :id => "suggested_pick"}
+      %p.help Enter the number correct out of #{suggestion.size}.
+      %button{:type => "submit"} Pick
+
+%h3 Remaining Words
+%ul
+  - current_term.possible_matches.each do |word|
+    %li= word
+
+%form{:action => "/new", :method => "post"}
+  %button{:type => "submit"} Erase &amp; Start Over

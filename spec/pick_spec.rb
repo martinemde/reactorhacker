@@ -1,15 +1,14 @@
-require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
-require 'pick'
+require 'spec_helper'
 
-describe Pick do
-  subject { Pick.new("cat", "2") }
+describe ReactorHacker::Pick do
+  subject { ReactorHacker::Pick.new("cat", "2") }
 
   def match(word)
     simple_matcher("match") { |given| given.match?(word) }
   end
 
   it "has the correct word" do
-    subject.word.should == Word.new("cat")
+    subject.word.should == ReactorHacker::Word.new("cat")
   end
 
   it "converts string correct into integer" do
