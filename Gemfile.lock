@@ -1,21 +1,17 @@
---- 
-dependencies: 
-  haml: 
-    group: 
-    - :default
-    version: ">= 0"
-  sinatra: 
-    group: 
-    - :default
-    version: ">= 0"
-specs: 
-- haml: 
-    version: 3.0.18
-- rack: 
-    version: 1.2.1
-- sinatra: 
-    version: "1.0"
-hash: aae71e6bf0ce703209b683a9c12a192dcbfb6743
-sources: 
-- Rubygems: 
-    uri: http://gemcutter.org
+GEM
+  remote: http://rubygems.org/
+  specs:
+    haml (3.0.18)
+    rack (1.2.1)
+    sinatra (1.0)
+      rack (>= 1.0)
+    unicorn (1.1.2)
+      rack
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  haml
+  sinatra
+  unicorn
