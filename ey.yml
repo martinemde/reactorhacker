@@ -20,5 +20,6 @@ environments:
   stonebox:
     migrate: false
     ignore_database_adapter_warning: true
-    maintenance_on_restart: true
+    maintenance_on_restart: false
+    maintenance_on_migrate: false
     verbose: true
