@@ -1,3 +1,5 @@
-$stderr.puts 'failing'
+info "this is an output before sleep"
 
-exit 1
+sleep 5
+
+info "this is it after sleep"
