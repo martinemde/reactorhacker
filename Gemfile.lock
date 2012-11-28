@@ -1,3 +1,9 @@
+GIT
+  remote: git@github.com:martinemde/git-ssh-wrapper.git
+  revision: a6b08439930ca878d21fdaef8dafb1e24e7ff6c1
+  specs:
+    git-ssh-wrapper (0.2.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -12,6 +18,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  git-ssh-wrapper!
   haml
   sinatra
   unicorn
