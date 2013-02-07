@@ -1,5 +1,5 @@
-info "this is an output before sleep"
+puts "this is an output before sleep"
 
 sleep 5
 
-info "this is it after sleep"
+puts "this is it after sleep"
