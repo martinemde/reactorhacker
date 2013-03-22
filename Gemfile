@@ -4,4 +4,5 @@ gem 'rake'
 gem 'sinatra'
 gem 'haml'
 gem 'unicorn'
+gem 'rspec', '~>2.0'
 

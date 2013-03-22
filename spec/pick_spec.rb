@@ -3,8 +3,8 @@ require 'spec_helper'
 describe ReactorHacker::Pick do
   subject { ReactorHacker::Pick.new("cat", "2") }
 
-  def match(word)
-    simple_matcher("match") { |given| given.match?(word) }
+  def match(*a)
+    be_match(*a)
   end
 
   it "has the correct word" do

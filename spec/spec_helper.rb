@@ -1,10 +1,6 @@
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
+$LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+require 'reactorhacker'
 
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-
-require File.join(File.dirname(__FILE__), *%w[.. lib reactorhacker])
-
-Spec::Runner.configure do |config|
-
+RSpec.configure do |config|
 end
