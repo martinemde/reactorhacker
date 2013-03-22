@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rake'
+require 'pathname'
 
 require 'spec/rake/spectask'
 Spec::Rake::SpecTask.new(:spec) do |spec|
