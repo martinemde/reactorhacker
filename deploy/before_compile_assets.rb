@@ -1,10 +1,15 @@
 def assets_same?
   rel = config.paths.previous_release(config.paths.active_release)
+  shell.debug "Previous release path: #{rel}"
   previous_revision_path = rel && rel.join('REVISION')
+  shell.debug "Previous revision path: #{previous_revision_path}"
   prev = previous_revision_path.read.strip if previous_revision_path.readable?
+  shell.debug "Previous revision: #{prev}"
   if prev
     # git diff returns 0 (true) when there are no changes and 1 (false) when there are changes.
-    system("git --git-dir #{config.paths.repository_cache} diff '#{prev}'..'#{config.active_revision}' --exit-code --name-only -- app/assets >/dev/null 2>&1")
+    res = run("git --git-dir #{config.paths.repository_cache} diff '#{prev}'..'#{config.active_revision}' --exit-code --name-only -- app/assets >/dev/null 2>&1")
+    shell.debug "Result: #{res}"
+    res
   else
     false
   end
