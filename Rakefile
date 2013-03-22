@@ -34,3 +34,10 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
+
+namespace :assets do
+  task :precompile do
+    puts "Compile all the assets!"
+    Pathename.new(__FILE__).dirname.join('public','assets').mkpath
+  end
+end
