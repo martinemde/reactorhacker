@@ -7,7 +7,7 @@ def assets_same?
   shell.debug "Previous revision: #{prev}"
   if prev
     # git diff returns 0 (true) when there are no changes and 1 (false) when there are changes.
-    res = run("git --git-dir #{config.paths.repository_cache} diff '#{prev}'..'#{config.active_revision}' --exit-code --name-only -- app/assets >/dev/null 2>&1")
+    res = run("git --git-dir #{config.paths.repository_cache}/.git diff '#{prev}'..'#{config.active_revision}' --exit-code --name-only -- app/assets >/dev/null 2>&1")
     shell.debug "Result: #{res}"
     res
   else
