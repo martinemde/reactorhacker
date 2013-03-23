@@ -23,3 +23,4 @@ environments:
     maintenance_on_restart: false
     maintenance_on_migrate: false
     verbose: true
+    precompile_assets: true
