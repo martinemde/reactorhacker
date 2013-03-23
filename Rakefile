@@ -13,6 +13,6 @@ task :default => :spec
 namespace :assets do
   task :precompile do
     puts "Compile all the assets!"
-    Pathename.new(__FILE__).dirname.join('public','assets').mkpath
+    Pathname.new(__FILE__).dirname.join('public','assets').mkpath
   end
 end
