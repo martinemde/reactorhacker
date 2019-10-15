@@ -5,7 +5,7 @@ GEM
       tilt
     kgio (2.8.1)
     rack (1.6.11)
-    rack-protection (1.5.1)
+    rack-protection (1.5.5)
       rack
     raindrops (0.12.0)
     sinatra (1.4.4)
